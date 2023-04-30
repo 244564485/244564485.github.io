@@ -1,897 +1,118 @@
-<!DOCTYPE html><html><head>
-      <title>homework</title>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <style>
-      /**
- * prism.js Github theme based on GitHub's theme.
- * @author Sam Clarke
- */
-code[class*="language-"],
-pre[class*="language-"] {
-  color: #333;
-  background: none;
-  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-  text-align: left;
-  white-space: pre;
-  word-spacing: normal;
-  word-break: normal;
-  word-wrap: normal;
-  line-height: 1.4;
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Homework</title>
+</head>
 
-  -moz-tab-size: 8;
-  -o-tab-size: 8;
-  tab-size: 8;
+<body>
+	
+<div id="hw">
+	<span style="font-weight:bold; font-size:2.0em;"><a href="./homework.md">HomeWork</a></span><br><br>
+	<p><a href="./3rd.html">三字经</a></p> <br>
+	<hr>
+	<span id="title1" style="font-weight:bold; font-size:1.5em;"> </span><br>
 
-  -webkit-hyphens: none;
-  -moz-hyphens: none;
-  -ms-hyphens: none;
-  hyphens: none;
-}
+	<table style="overflow:auto;">
+		<tr>
+			<td style="text-align:center; color:red; font-weight:bold; font-size:1.2em; border:1px solid #d6d6d6;">
+				2(4)班</td>
+			<td style="text-align:center; color:blue; font-weight:bold; font-size:1.2em; border:1px solid #d6d6d6;">
+				1(9)班</td>
+		</tr>
+		<tr style="vertical-align:top;">
+			<td style="border:1.5px solid red; padding:1px 1px 1px 10px; margin:0px; ">
+				<b style="font-size:1.2em;">2(4)班•今日语文家庭练习:</b><br><br>
+				<span id="chi_2"></span>
+				<br>
+				<b style="font-size:1.2em;">2(4)班•今天数学家庭练习:</b><br><br>
+				<span id="math_2"></span>
+				<br>
+			</td>
+			<td style="border:1.5px solid blue; padding:1px 1px 1px 10px; ">
+				<b style="font-size:1.2em;">1(9)班•语文任务内容:</b><br><br>
+				<span id="chi_1"></span>
+				<br>
+				<b style="font-size:1.2em;">1(9)班•数学任务内容:</b><br><br>
+				<span id="math_1"></span>
+				<br>
+			</td>
+		</tr>
+	</table>
+</div>
 
-/* Code blocks */
-pre[class*="language-"] {
-  padding: .8em;
-  overflow: auto;
-  /* border: 1px solid #ddd; */
-  border-radius: 3px;
-  /* background: #fff; */
-  background: #f5f5f5;
-}
+<div id="text"></div>
 
-/* Inline code */
-:not(pre) > code[class*="language-"] {
-  padding: .1em;
-  border-radius: .3em;
-  white-space: normal;
-  background: #f5f5f5;
-}
+</body>
 
-.token.comment,
-.token.blockquote {
-  color: #969896;
-}
+<script>
 
-.token.cdata {
-  color: #183691;
-}
+	function loadFile(filePath) {
+		var result = null;
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("GET", filePath, false);
+		xmlhttp.send();
 
-.token.doctype,
-.token.punctuation,
-.token.variable,
-.token.macro.property {
-  color: #333;
-}
+		if (xmlhttp.readyState == 4 && ((xmlhttp.status >= 200 && xmlhttp.status < 300) || xmlhttp.status == 304)) {
+			result = xmlhttp.responseText;
+			result = result.replace(/\r\n/g, "<br>");
+			result = result.replace(/\n/g, "<br>");
+			// result = result.replace(/\s/g,"");
+			// console.log('result : ' + result);
 
-.token.operator,
-.token.important,
-.token.keyword,
-.token.rule,
-.token.builtin {
-  color: #a71d5d;
-}
+			arrHw1 = result.split(/<br>#\s+/);
+			arrHw11 = arrHw1[1].split(/<br>##\s+/);
+			arrHw111 = arrHw11[1].split(/<br>###\s+/);
 
-.token.string,
-.token.url,
-.token.regex,
-.token.attr-value {
-  color: #183691;
-}
+			for (let i = 1; i < arrHw111.length; i++) {
+				var index = arrHw111[i].indexOf("<br><br>");
+				arrHw111[i] = arrHw111[i].substring(index + 8);
+			}
+			// console.log('arrHw111: ' , arrHw111);
+		}
+		return arrHw111;
+	}
 
-.token.property,
-.token.number,
-.token.boolean,
-.token.entity,
-.token.atrule,
-.token.constant,
-.token.symbol,
-.token.command,
-.token.code {
-  color: #0086b3;
-}
+	var myStuff = loadFile("homework.md");
+	// alert(myStuff);
+	// document.getElementById("text").innerHTML = myStuff;
 
-.token.tag,
-.token.selector,
-.token.prolog {
-  color: #63a35c;
-}
+	document.getElementById("title1").innerHTML = myStuff[0];
+	document.getElementById("chi_2").innerHTML = myStuff[1];
+	document.getElementById("math_2").innerHTML = myStuff[2];
+	document.getElementById("chi_1").innerHTML = myStuff[3];
+	document.getElementById("math_1").innerHTML = myStuff[4];
 
-.token.function,
-.token.namespace,
-.token.pseudo-element,
-.token.class,
-.token.class-name,
-.token.pseudo-class,
-.token.id,
-.token.url-reference .token.variable,
-.token.attr-name {
-  color: #795da3;
-}
+	function getDate() {
+		var date = new Date() // 获取时间
+		var year = date.getFullYear() // 获取年
+		var month = date.getMonth() + 1 // 获取月
+		var strDate = date.getDate() // 获取日
+		// var day = date.getDate() //
+		var day = '日一二三四五六'.charAt(new Date().getDay()) // 周一1 周六6 周日0
+		var hour = date.getHours() // 获取小时
+		var minute = date.getMinutes() // 获取分钟
+		var second = date.getSeconds() // 获取秒
+		// 由于部分业务处理 是需要月份日份前面有0 故新增一个函数
+		this.getNum()
+		console.log('今天星期' + day)
+		console.log(year + '-' + this.getNum(month) + '-' + this.getNum(strDate) + '_' + hour + '-' + minute + '-' + second)
+		return year + '.' + this.getNum(month) + '.' + this.getNum(strDate) + ' ' + day
+	}
 
-.token.entity {
-  cursor: help;
-}
+	function getNum(i) {
+		return i < 10 ? '0' + i : i
+	}
 
-.token.title,
-.token.title .token.punctuation {
-  font-weight: bold;
-  color: #1d3e81;
-}
+	// 再加一个定时器每秒获取
+	function getTime() {
+		setInterval(() => {
+			this.getDate()
+		}, 1000)
+	}
 
-.token.list {
-  color: #ed6a43;
-}
+	// document.getElementById("title1").innerHTML = getDate() ;
 
-.token.inserted {
-  background-color: #eaffea;
-  color: #55a532;
-}
+</script>
 
-.token.deleted {
-  background-color: #ffecec;
-  color: #bd2c00;
-}
-
-.token.bold {
-  font-weight: bold;
-}
-
-.token.italic {
-  font-style: italic;
-}
-
-
-/* JSON */
-.language-json .token.property {
-  color: #183691;
-}
-
-.language-markup .token.tag .token.punctuation {
-  color: #333;
-}
-
-/* CSS */
-code.language-css,
-.language-css .token.function {
-  color: #0086b3;
-}
-
-/* YAML */
-.language-yaml .token.atrule {
-  color: #63a35c;
-}
-
-code.language-yaml {
-  color: #183691;
-}
-
-/* Ruby */
-.language-ruby .token.function {
-  color: #333;
-}
-
-/* Markdown */
-.language-markdown .token.url {
-  color: #795da3;
-}
-
-/* Makefile */
-.language-makefile .token.symbol {
-  color: #795da3;
-}
-
-.language-makefile .token.variable {
-  color: #183691;
-}
-
-.language-makefile .token.builtin {
-  color: #0086b3;
-}
-
-/* Bash */
-.language-bash .token.keyword {
-  color: #0086b3;
-}
-
-/* highlight */
-pre[data-line] {
-  position: relative;
-  padding: 1em 0 1em 3em;
-}
-pre[data-line] .line-highlight-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: transparent;
-  display: block;
-  width: 100%;
-}
-
-pre[data-line] .line-highlight {
-  position: absolute;
-  left: 0;
-  right: 0;
-  padding: inherit 0;
-  margin-top: 1em;
-  background: hsla(24, 20%, 50%,.08);
-  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
-  pointer-events: none;
-  line-height: inherit;
-  white-space: pre;
-}
-
-pre[data-line] .line-highlight:before, 
-pre[data-line] .line-highlight[data-end]:after {
-  content: attr(data-start);
-  position: absolute;
-  top: .4em;
-  left: .6em;
-  min-width: 1em;
-  padding: 0 .5em;
-  background-color: hsla(24, 20%, 50%,.4);
-  color: hsl(24, 20%, 95%);
-  font: bold 65%/1.5 sans-serif;
-  text-align: center;
-  vertical-align: .3em;
-  border-radius: 999px;
-  text-shadow: none;
-  box-shadow: 0 1px white;
-}
-
-pre[data-line] .line-highlight[data-end]:after {
-  content: attr(data-end);
-  top: auto;
-  bottom: .4em;
-}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p,html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
-/* Please visit the URL below for more information: */
-/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
-
-      </style>
-    </head>
-    <body for="html-export">
-      <div class="mume markdown-preview  ">
-      <h1 class="mume-header" id="homework">HomeWork</h1>
-
-<p><a href="./3rd.html">&#x4E09;&#x5B57;&#x7ECF;</a></p>
-<hr>
-<h2 class="mume-header" id="20230428-fri-%E4%BA%94">2023.04.28 Fri &#x4E94;</h2>
-
-<table border="0">
- <tbody><tr>
-    <td style="text-align:center; color:red; font-weight:bold; font-size:1.2em; ">2(4)&#x73ED;</td>
-    <td style="text-align:center; color:blue; font-weight:bold; font-size:1.2em;">1(9)&#x73ED;</td>
- </tr>
- <tr style="vertical-align:top;">
-    <td style="border:1.5px solid red; padding:1px 1px 1px 10px; margin:0px; ">
-        <b style="font-size:1.2em;">2(4)&#x73ED;&#x2022;&#x4ECA;&#x65E5;&#x8BED;&#x6587;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-1.&#x5B8C;&#x6210;&#x4E00;&#x5F20;&#x7EC3;&#x4E60;&#x5377;<br> 
-2.&#x80CC;&#x8BF5;&#x300A;&#x8981;&#x662F;&#x5728;&#x91CE;&#x5916;&#x8FF7;&#x4E86;&#x8DEF;&#x300B;&#xFF0C;&#x590D;&#x4E60;15.16.17&#x751F;&#x5B57;&#x8BCD;&#x3002;<br>
-3.&#x52B3;&#x52A8;&#x8282;&#x5728;&#x5BB6;&#x5E2E;&#x5BB6;&#x957F;&#x505A;&#x4E9B;&#x529B;&#x6240;&#x80FD;&#x53CA;&#x7684;&#x4E8B;&#x60C5;<br>
-4&#x5468;&#x672B;&#x590D;&#x4E60;&#x80CC;&#x8BF5;&#x516C;&#x51B6;&#x957F;&#x7B2C;6&#x81F3;8&#x7AE0;<br>
-5.&#x8BFE;&#x5916;&#x9605;&#x8BFB;&#x6BCF;&#x5929;&#x534A;&#x5C0F;&#x65F6;&#xFF0C;&#x8FD0;&#x52A8;&#x534A;&#x5C0F;&#x65F6;&#x3002;&#x6BCF;&#x5929;&#x62BD;&#x7A7A;&#x8BA9;&#x5B69;&#x5B50;&#x8BA4;&#x771F;&#x7EC3;&#x4E0B;&#x5B57;(5&#x4E2A;&#x5B57;&#xFF0C;&#x4E00;&#x4E2A;&#x4E00;&#x884C;)<br>
-        <br>
-        <b style="font-size:1.2em;">2(4)&#x73ED;&#x2022;&#x4ECA;&#x5929;&#x6570;&#x5B66;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-&#x4E00;&#x5F20;&#x8BD5;&#x5377;<br>
-&#x4E66;p85<br>    
-&#x7565;<br>
-        <br>
-    </td>
-    <td style="border:1.5px solid blue; padding:1px 1px 1px 10px; ">
-        <b style="font-size:1.2em;">1(9)&#x73ED;&#x2022;&#x8BED;&#x6587;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1.&#xA0;&#x300A;&#x521B;&#x65B0;&#x8BFE;&#x5802;&#x300B;&#x5B8C;&#x6210;&#x300A;&#x52A8;&#x7269;&#x738B;&#x56FD;&#x5F00;&#x5927;&#x4F1A;&#x300B;&#x3002;<br>
-2.&#xA0;&#x5B8C;&#x6210;&#x300A;&#x521B;&#x65B0;&#x8BFE;&#x5802;&#x300B;&#x8BD5;&#x5377;&#x201C;&#x8BFE;&#x540E;&#x5DE9;&#x56FA;&#x7EC3;&#x4E60;&#x56DB;&#x201D;&#x3002;<br>
-3.&#xA0;&#x542C;&#x5199;&#x8BED;&#x6587;&#x7B2C;14&#x3001;15&#x3001;16&#x7BC7;&#x8BFE;&#x6587;&#x7530;&#x5B57;&#x683C;&#x751F;&#x5B57;&#x3002;<br>
-4.&#xA0;&#x5C11;&#x5148;&#x961F;&#x516D;&#x77E5;&#x516D;&#x4F1A;&#x4E00;&#x5B9A;&#x8981;&#x80CC;&#x4F1A;&#x5B66;&#x4F1A;&#xFF0C;&#x4E0B;&#x5468;&#x62BD;&#x67E5;&#x3002;<br>
-5.&#xA0;&#x795D;&#x5927;&#x5BB6;&#x4E94;&#x4E00;&#x5FEB;&#x4E50;&#xFF0C;&#x5728;&#x6109;&#x5FEB;&#x73A9;&#x800D;&#x7684;&#x540C;&#x65F6;&#x4E00;&#x5B9A;&#x8981;&#x6CE8;&#x610F;&#x5B89;&#x5168;&#xFF0C;&#x7262;&#x8BB0;&#x9632;&#x6EBA;&#x6C34;&#x5B89;&#x5168;&#x516D;&#x4E0D;&#x51C6;&#x3002;<br>
-        <br>
-        <b style="font-size:1.2em;">1(9)&#x73ED;&#x2022;&#x6570;&#x5B66;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1.&#x6BCF;&#x65E5;&#x4E00;&#x7EC3;: &#x2460;&#x53E3;&#x7B97;&#x8BAD;&#x7EC3;&#x3002;<br>
-2.&#x6BCF;&#x65E5;&#x5B9E;&#x8DF5;&#x6E38;&#x620F;:&#xA0;&#x2460;&#x7EC3;&#x4E60;&#x51E0;&#x5143;&#x51E0;&#x89D2;&#x5B9E;&#x8DF5;&#x9898;<br>
-3.&#x6BCF;&#x65E5;&#x4E00;&#x95EE;: &#x2460;&#x767E;&#x6570;&#x8868;&#x63D0;&#x95EE;&#xFF08;&#x4E5D;&#x9009;&#x4E00;&#x6216;&#x4E24;&#x4E2A;&#x95EE;&#x9898;&#xFF09;<br>
-4.&#xA0;&#x5199;&#x4E00;&#x5199;: &#x521B;&#x65B0;&#x8BFE;&#x5802;P40/41/42<br>
-        <br>
-    </td>
- </tr>
-</tbody></table>
-<hr>
-<h2 class="mume-header" id="20230427-thu-%E5%9B%9B">2023.04.27 Thu &#x56DB;</h2>
-
-<table border="0">
- <tbody><tr>
-    <td style="text-align:center; color:red; font-weight:bold; font-size:1.2em; ">2(4)&#x73ED;</td>
-    <td style="text-align:center; color:blue; font-weight:bold; font-size:1.2em;">1(9)&#x73ED;</td>
- </tr>
- <tr style="vertical-align:top;">
-    <td style="border:1.5px solid red; padding:1px 1px 1px 10px; margin:0px; ">
-        <b style="font-size:1.2em;">2(4)&#x73ED;&#x2022;&#x4ECA;&#x65E5;&#x8BED;&#x6587;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-1.&#x8BFE;&#x540E;&#x5EF6;&#x65F6;&#x4F5C;&#x4E1A;&#x505A;&#x4E86;17&#x8BFE;&#x5927;&#x7EC3;&#xFF0C;&#x5BB6;&#x957F;&#x68C0;&#x67E5;&#x4E0B;&#x6CA1;&#x505A;&#x5B8C;&#x7684;&#x8BA9;&#x5B69;&#x5B50;&#x56DE;&#x5BB6;&#x7EE7;&#x7EED;&#x505A;<br>
-2.&#x80CC;&#x8BF5;&#x300A;&#x8981;&#x662F;&#x5728;&#x91CE;&#x5916;&#x8FF7;&#x4E86;&#x8DEF;&#x300B;<br>
-3.&#x672C;&#x5468;&#x5B8C;&#x6210;&#x80CC;&#x8BF5;&#x516C;&#x51B6;&#x957F;&#x7B2C;6&#x81F3;8&#x7AE0;&#xFF0C;&#x4F1A;&#x80CC;&#x7684;&#x590D;&#x4E60;&#x80CC;&#x3002;<br>
-4.&#x8BFE;&#x5916;&#x9605;&#x8BFB;&#x6BCF;&#x5929;&#x534A;&#x5C0F;&#x65F6;&#xFF0C;&#x8FD0;&#x52A8;&#x534A;&#x5C0F;&#x65F6;&#x3002;&#x6BCF;&#x5929;&#x62BD;&#x7A7A;&#x8BA9;&#x5B69;&#x5B50;&#x8BA4;&#x771F;&#x7EC3;&#x4E0B;&#x5B57;(5&#x4E2A;&#x5B57;&#xFF0C;&#x4E00;&#x4E2A;&#x4E00;&#x884C;)<br> 
-        <br>
-        <b style="font-size:1.2em;">2(4)&#x73ED;&#x2022;&#x4ECA;&#x5929;&#x6570;&#x5B66;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-&#x521B;p49&#x2014;&#x2014;50        
-&#x7565;<br>
-        <br>
-    </td>
-    <td style="border:1.5px solid blue; padding:1px 1px 1px 10px; ">
-        <b style="font-size:1.2em;">1(9)&#x73ED;&#x2022;&#x8BED;&#x6587;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1. &#x300A;&#x5B57;&#x8BCD;&#x53E5;&#x300B;&#x5B8C;&#x6210;&#x300A;&#x52A8;&#x7269;&#x738B;&#x56FD;&#x5F00;&#x5927;&#x4F1A;&#x300B;&#x4E00;&#x8BFE;&#x3002;<br>
-2. &#x9605;&#x8BFB;&#x8BFE;&#x5916;&#x4E66;&#x7C4D;&#x534A;&#x5C0F;&#x65F6;&#x3002;<br>
-        <br>
-        <b style="font-size:1.2em;">1(9)&#x73ED;&#x2022;&#x6570;&#x5B66;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1.&#x6BCF;&#x65E5;&#x4E00;&#x7EC3;:<br>
-&#x2460;&#x53E3;&#x7B97;&#x8BAD;&#x7EC3;&#x3002;<br>
-2.&#x6BCF;&#x65E5;&#x5B9E;&#x8DF5;&#x6E38;&#x620F;: <br>
-&#x2460;&#x7EC3;&#x4E60;&#x51E0;&#x5143;&#x51E0;&#x89D2;&#x5B9E;&#x8DF5;&#x9898;<br>
-3.&#x6BCF;&#x65E5;&#x4E00;&#x95EE;:<br>
-&#x2460;&#x767E;&#x6570;&#x8868;&#x63D0;&#x95EE;&#xFF08;&#x4E5D;&#x9009;&#x4E00;&#x6216;&#x4E24;&#x4E2A;&#x95EE;&#x9898;&#xFF09;<br>
-4. 4.27&#x4F5C;&#x4E1A;:<br> 
-&#x5B8C;&#x6210;&#x4F5C;&#x4E1A;&#x2460;&#x548C;&#x4F5C;&#x4E1A;&#x2461;&#xFF08;&#x53C2;&#x8003;&#x4E0B;&#x56FE;&#xFF09;<br>
-        <br>
-    </td>
- </tr>
-</tbody></table>
-<hr>
-<h2 class="mume-header" id="20230426-wed-%E4%B8%89">2023.04.26 Wed &#x4E09;</h2>
-
-<table border="0">
- <tbody><tr>
-    <td style="text-align:center; color:red; font-weight:bold; font-size:1.2em; ">2(4)&#x73ED;</td>
-    <td style="text-align:center; color:blue; font-weight:bold; font-size:1.2em;">1(9)&#x73ED;</td>
- </tr>
- <tr style="vertical-align:top;">
-    <td style="border:1.5px solid red; padding:1px 1px 1px 10px; margin:0px; ">
-        <b style="font-size:1.2em;">2(4)&#x73ED;&#x2022;&#x4ECA;&#x65E5;&#x8BED;&#x6587;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-1.&#x8BFE;&#x540E;&#x5EF6;&#x65F6;&#x4F5C;&#x4E1A;&#xFF1A;&#x8BCD;&#x8BED;&#x672C;&#x6284;&#x5199;&#x5E26;&#x7B11;&#x7684;&#x8BCD;&#x8BED;&#x3001;&#x542B;&#x6709;&#x8FD1;&#x4E49;&#x8BCD;&#x7684;&#x8BCD;&#x8BED;&#x548C;&#x53E4;&#x8BD7;&#xFF0C;&#x8BF7;&#x5BB6;&#x957F;&#x7559;&#x610F;&#x4E00;&#x4E0B;&#xFF0C;&#x6CA1;&#x5B8C;&#x6210;&#x7684;&#x5B69;&#x5B50;&#x56DE;&#x5BB6;&#x8865;&#x3002; <br>
-2.&#x719F;&#x8BFB;&#x300A;&#x8981;&#x662F;&#x5728;&#x91CE;&#x5916;&#x8FF7;&#x4E86;&#x8DEF;&#x300B;<br>
-3.&#x672C;&#x5468;&#x5B8C;&#x6210;&#x80CC;&#x8BF5;&#x516C;&#x51B6;&#x957F;&#x7B2C;6&#x81F3;8&#x7AE0;&#xFF0C;&#x4F1A;&#x80CC;&#x7684;&#x590D;&#x4E60;&#x80CC;&#x3002;<br>
-4.&#x8BFE;&#x5916;&#x9605;&#x8BFB;&#x6BCF;&#x5929;&#x534A;&#x5C0F;&#x65F6;&#xFF0C;&#x8FD0;&#x52A8;&#x534A;&#x5C0F;&#x65F6;&#x3002;&#x6BCF;&#x5929;&#x62BD;&#x7A7A;&#x8BA9;&#x5B69;&#x5B50;&#x8BA4;&#x771F;&#x7EC3;&#x4E0B;&#x5B57;(5&#x4E2A;&#x5B57;&#xFF0C;&#x4E00;&#x4E2A;&#x4E00;&#x884C;)<br>
-        <br>
-        <b style="font-size:1.2em;">2(4)&#x73ED;&#x2022;&#x4ECA;&#x5929;&#x6570;&#x5B66;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-1.&#x521B;&#x65B0;p51&#x4EE5;&#x53CA;&#x4ECA;&#x5929;&#x4E0A;&#x7684;&#x65B0;&#x8BFE;&#x505A;&#x4E00;&#x505A;&#x3002;<br>       
-&#x7565;<br>
-        <br>
-    </td>
-    <td style="border:1.5px solid blue; padding:1px 1px 1px 10px; ">
-        <b style="font-size:1.2em;">1(9)&#x73ED;&#x2022;&#x8BED;&#x6587;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1. &#x9884;&#x4E60;&#x300A;&#x52A8;&#x7269;&#x738B;&#x56FD;&#x5F00;&#x5927;&#x4F1A;&#x300B;<br>
-2. &#x518D;&#x6B21;&#x9ED8;&#x5199;&#x56DB;&#x4E2A;&#x8868;&#xFF0C;&#x542C;&#x5199;&#x8BED;&#x6587;&#x4E66;120&#x9875;&#x504F;&#x65C1;&#x90E8;&#x9996;&#x3002;<br>
-        <br>
-        <b style="font-size:1.2em;">1(9)&#x73ED;&#x2022;&#x6570;&#x5B66;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1.&#x6BCF;&#x65E5;&#x4E00;&#x7EC3;:<br>
-&#x2460;&#x53E3;&#x7B97;&#x8BAD;&#x7EC3;&#x3002;<br>
-2.&#x6BCF;&#x65E5;&#x5B9E;&#x8DF5;&#x6E38;&#x620F;: <br>
-&#x2460;&#x7EC3;&#x4E60;&#x51E0;&#x5143;&#x51E0;&#x89D2;&#x5B9E;&#x8DF5;&#x9898;<br>
-3.&#x6BCF;&#x65E5;&#x4E00;&#x95EE;:<br>
-&#x2460;&#x767E;&#x6570;&#x8868;&#x63D0;&#x95EE;&#xFF08;&#x4E5D;&#x9009;&#x4E00;&#x6216;&#x4E24;&#x4E2A;&#x95EE;&#x9898;&#xFF09;<br>
-        <br>
-    </td>
- </tr>
-</tbody></table>
-<hr>
-<h2 class="mume-header" id="20230425-tue-%E4%BA%8C">2023.04.25 Tue &#x4E8C;</h2>
-
-<table border="0">
- <tbody><tr>
-    <td style="text-align:center; color:red; font-weight:bold; font-size:1.2em; ">2(4)&#x73ED;</td>
-    <td style="text-align:center; color:blue; font-weight:bold; font-size:1.2em;">1(9)&#x73ED;</td>
- </tr>
- <tr style="vertical-align:top;">
-    <td style="border:1.5px solid red; padding:1px 1px 1px 10px; margin:0px; ">
-        <b style="font-size:1.2em;">2(4)&#x73ED;&#x2022;&#x4ECA;&#x65E5;&#x8BED;&#x6587;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-1.&#x80CC;&#x8BF5;&#x300A;&#x96F7;&#x96E8;&#x300B;&#x8BFE;&#x6587;(&#x6709;&#x4E00;&#x534A;&#x5B69;&#x5B50;&#x6CA1;&#x5B8C;&#x6210;)&#xFF0C;&#x590D;&#x4E60;&#x8BFB;&#x751F;&#x5B57;&#x8BCD;<br>
-2.&#x9884;&#x4E60;&#x7B2C;17&#x8BFE;<br>
-3.&#x672C;&#x5468;&#x5B8C;&#x6210;&#x80CC;&#x8BF5;&#x516C;&#x51B6;&#x957F;&#x7B2C;6&#x81F3;8&#x7AE0;&#xFF0C;&#x4F1A;&#x80CC;&#x7684;&#x590D;&#x4E60;&#x80CC;&#x3002;<br>
-4.&#x8BFE;&#x5916;&#x9605;&#x8BFB;&#x6BCF;&#x5929;&#x534A;&#x5C0F;&#x65F6;&#xFF0C;&#x8FD0;&#x52A8;&#x534A;&#x5C0F;&#x65F6;&#x3002;<br>
-&#x6BCF;&#x5929;&#x62BD;&#x7A7A;&#x8BA9;&#x5B69;&#x5B50;&#x8BA4;&#x771F;&#x7EC3;&#x4E0B;&#x5B57;(5&#x4E2A;&#x5B57;&#xFF0C;&#x4E00;&#x4E2A;&#x4E00;&#x884C;)<br>
-        <br>
-        <b style="font-size:1.2em;">2(4)&#x73ED;&#x2022;&#x4ECA;&#x5929;&#x6570;&#x5B66;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-&#x7565;<br>
-        <br>
-    </td>
-    <td style="border:1.5px solid blue; padding:1px 1px 1px 10px; ">
-        <b style="font-size:1.2em;">1(9)&#x73ED;&#x2022;&#x8BED;&#x6587;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1. &#x300A;&#x521B;&#x65B0;&#x8BFE;&#x5802;&#x300B;&#x5B8C;&#x6210;&#x300A;&#x4E00;&#x5206;&#x949F;&#x300B;&#x4E00;&#x8BFE;&#x3002;<br>
-2. &#x5C11;&#x5148;&#x961F;&#x5165;&#x961F;&#x516D;&#x77E5;&#x516D;&#x4F1A;&#x8BF7;&#x7EE7;&#x7EED;&#x5B66;&#x4E60;&#x3002;<br>
-        <br>
-        <b style="font-size:1.2em;">1(9)&#x73ED;&#x2022;&#x6570;&#x5B66;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1.&#x5199;:<br>
-&#x2460;&#x521B;&#x65B0;&#x8BFE;&#x5802;P39&#x3002;<br>
-2.&#x6BCF;&#x65E5;&#x4E00;&#x7EC3;:<br>
-&#x2460;&#x53E3;&#x7B97;&#x8BAD;&#x7EC3;&#x3002;<br>
-3.&#x6BCF;&#x65E5;&#x5B9E;&#x8DF5;&#x6E38;&#x620F;: <br>
-&#x2460;&#x8BFE;&#x5802;&#x6446;&#x4E00;&#x6446;&#x60C5;&#x51B5;&#x4E0D;&#x7406;&#x60F3;&#xFF0C;&#x53EF;&#x4EE5;&#x591A;&#x6446;&#x6216;&#x73A9;&#x4E70;&#x4E1C;&#x897F;&#x6E38;&#x620F;&#xFF0C;&#x591A;&#x7EC3;&#x4E60;&#x51E0;&#x5143;&#x51E0;&#x89D2;&#x3002;<br>
-4.&#x6BCF;&#x65E5;&#x4E00;&#x95EE;:<br>
-&#x2460;&#x767E;&#x6570;&#x8868;&#x63D0;&#x95EE;&#xFF08;&#x4E5D;&#x9009;&#x4E00;&#x6216;&#x4E24;&#x4E2A;&#x95EE;&#x9898;&#xFF09;<br>
-        <br>
-    </td>
- </tr>
-</tbody></table>
-<hr>
-<h2 class="mume-header" id="20230424-mon-%E4%B8%80">2023.04.24 Mon &#x4E00;</h2>
-
-<table border="0">
- <tbody><tr>
-    <td style="text-align:center; color:red; font-weight:bold; font-size:1.2em; ">2(4)&#x73ED;</td>
-    <td style="text-align:center; color:blue; font-weight:bold; font-size:1.2em;">1(9)&#x73ED;</td>
- </tr>
- <tr style="vertical-align:top;">
-    <td style="border:1.5px solid red; padding:1px 1px 1px 10px; margin:0px; ">
-        <b style="font-size:1.2em;">2(4)&#x73ED;&#x2022;&#x4ECA;&#x65E5;&#x8BED;&#x6587;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-1.&#x80CC;&#x8BF5;&#x300A;&#x96F7;&#x96E8;&#x300B;&#x8BFE;&#x6587;&#xFF0C;&#x590D;&#x4E60;&#x8BFB;&#x751F;&#x5B57;&#x8BCD;<br>
-2.&#x6CA1;&#x5B8C;&#x6210;&#x7EC3;&#x4E60;&#x5377;&#x7684;&#x7EE7;&#x7EED;&#x5B8C;&#x6210;<br>
-3.&#x4E66;&#x7A7A;&#x53E4;&#x8BD7;<br>
-4.&#x672C;&#x5468;&#x5B8C;&#x6210;&#x80CC;&#x8BF5;&#x516C;&#x51B6;&#x957F;&#x7B2C;6&#x81F3;8&#x7AE0;&#xFF0C;&#x4F1A;&#x80CC;&#x7684;&#x590D;&#x4E60;&#x80CC;&#x3002;<br>
-5.&#x8BFE;&#x5916;&#x9605;&#x8BFB;&#x6BCF;&#x5929;&#x534A;&#x5C0F;&#x65F6;&#xFF0C;&#x8FD0;&#x52A8;&#x534A;&#x5C0F;&#x65F6;&#xFF0C;&#x6BCF;&#x5929;&#x62BD;&#x7A7A;&#x8BA9;&#x5B69;&#x5B50;&#x8BA4;&#x771F;&#x7EC3;&#x4E0B;&#x5B57;(5&#x4E2A;&#x5B57;&#xFF0C;&#x4E00;&#x4E2A;&#x4E00;&#x884C;)<br>
-        <br>
-        <b style="font-size:1.2em;">2(4)&#x73ED;&#x2022;&#x4ECA;&#x5929;&#x6570;&#x5B66;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-&#x7565;<br>
-        <br>
-    </td>
-    <td style="border:1.5px solid blue; padding:1px 1px 1px 10px; ">
-        <b style="font-size:1.2em;">1(9)&#x73ED;&#x2022;&#x8BED;&#x6587;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1. &#x6717;&#x8BF5;&#x300A;&#x4E09;&#x5B57;&#x7ECF;&#x300B;&#x81F3;&#x201C;&#x4E03;&#x60C5;&#x5177;&#x201D;&#xFF0C;&#x4F1A;&#x80CC;&#x5C31;&#x80CC;&#x8BF5;&#xFF0C;&#x660E;&#x5929;&#x4E0B;&#x5348;&#x4E09;&#x5B57;&#x7ECF;&#x6717;&#x8BF5;&#x6BD4;&#x8D5B;&#x3002;<br>
-2. &#x300A;&#x5B57;&#x8BCD;&#x53E5;&#x300B;&#x5B8C;&#x6210;104&#x9875;&#x3002;<br>
-3. &#x516D;&#x4E00;&#x513F;&#x7AE5;&#x8282;&#x4E3B;&#x9898;&#x753B;&#x8FD8;&#x6CA1;&#x4EA4;&#x7684;&#x660E;&#x5929;&#x5E26;&#x6765;&#x3002;<br>
-        <br>
-        <b style="font-size:1.2em;">1(9)&#x73ED;&#x2022;&#x6570;&#x5B66;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-&#x7565;<br>
-        <br>
-    </td>
- </tr>
-</tbody></table>
-<hr>
-<h2 class="mume-header" id="20230423-sun-%E6%97%A5">2023.04.23 Sun &#x65E5;</h2>
-
-<table border="0">
- <tbody><tr>
-    <td style="text-align:center; color:red; font-weight:bold; font-size:1.2em; ">2(4)&#x73ED;</td>
-    <td style="text-align:center; color:blue; font-weight:bold; font-size:1.2em;">1(9)&#x73ED;</td>
- </tr>
- <tr style="vertical-align:top;">
-    <td style="border:1.5px solid red; padding:1px 1px 1px 10px; margin:0px; ">
-        <b style="font-size:1.2em;">2(4)&#x73ED;&#x2022;&#x4ECA;&#x65E5;&#x8BED;&#x6587;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-1.&#x719F;&#x8BFB;&#x300A;&#x96F7;&#x96E8;&#x300B;&#x8BFE;&#x6587;&#x4EE5;&#x53CA;&#x751F;&#x5B57;&#x8BCD;<br>
-2.&#x590D;&#x4E60;&#x80CC;&#x8BF5;&#x53E4;&#x8BD7;&#xFF0C;&#x8BFB;&#x8BD7;&#x610F;&#x4EE5;&#x53CA;&#x751F;&#x5B57;&#x8BCD;<br>
-3.&#x672C;&#x5468;&#x5B8C;&#x6210;&#x80CC;&#x8BF5;&#x516C;&#x51B6;&#x957F;&#x7B2C;3&#x81F3;5&#x7AE0;&#xFF0C;&#x4F1A;&#x80CC;&#x7684;&#x590D;&#x4E60;&#x80CC;&#x3002;<br>
-4.&#x8BFE;&#x5916;&#x9605;&#x8BFB;&#x6BCF;&#x5929;&#x534A;&#x5C0F;&#x65F6;&#xFF0C;&#x8FD0;&#x52A8;&#x534A;&#x5C0F;&#x65F6;&#xFF0C;&#x6BCF;&#x5929;&#x62BD;&#x7A7A;&#x8BA9;&#x5B69;&#x5B50;&#x8BA4;&#x771F;&#x7EC3;&#x4E0B;&#x5B57;(5&#x4E2A;&#x5B57;&#xFF0C;&#x4E00;&#x4E2A;&#x4E00;&#x884C;)<br>
-        <br>
-        <b style="font-size:1.2em;">2(4)&#x73ED;&#x2022;&#x4ECA;&#x5929;&#x6570;&#x5B66;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-1.&#x521B;&#x65B0;p47-48<br>
-&#x7565;<br>
-        <br>
-    </td>
-    <td style="border:1.5px solid blue; padding:1px 1px 1px 10px; ">
-        <b style="font-size:1.2em;">1(9)&#x73ED;&#x2022;&#x8BED;&#x6587;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1. &#x5B8C;&#x6210;&#x300A;&#x521B;&#x65B0;&#x8BFE;&#x5802;&#x300B;&#x300A;&#x5B57;&#x8BCD;&#x53E5;&#x300B;&#x7684;&#x300A;&#x6587;&#x5177;&#x7684;&#x5BB6;&#x300B;&#x4E00;&#x8BFE;&#x3002;<br>
-2. &#x753B;&#x4E00;&#x526F;&#x201C;&#x516D;&#x4E00;&#x513F;&#x7AE5;&#x8282;&#x201D;&#x7684;&#x753B;&#xFF08;&#x6CE8;&#x610F;:&#x4E0D;&#x662F;&#x624B;&#x6284;&#x62A5;&#xFF0C;&#x662F;&#x753B;&#x3002;&#x8981;&#x53C2;&#x52A0;&#x6821;&#x7EA7;&#x6BD4;&#x8D5B;&#x7684;&#x3002;&#xFF09;&#xFF0C;&#x660E;&#x5929;&#x5E26;&#x6765;&#x3002;<br>
-3. &#x8FD9;&#x5468;&#x4E09;&#x8FDB;&#x884C;&#x671F;&#x4E2D;&#x6D4B;&#x9A8C;&#xFF0C;&#x8BF7;&#x540C;&#x5B66;&#x4EEC;&#x5728;&#x5BB6;&#x597D;&#x597D;&#x590D;&#x4E60;&#x3002;<br>
-        <br>
-        <b style="font-size:1.2em;">1(9)&#x73ED;&#x2022;&#x6570;&#x5B66;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1.&#x660E;&#x65E5;&#x505A;&#x6570;&#x5B66;&#x671F;&#x4E2D;&#x7EC3;&#x4E60;&#xFF0C;&#x8003;&#x8BD5;&#x8303;&#x56F4;&#x662F;&#x7B2C;&#x4E00;&#x5355;&#x5143;&#x81F3;&#x7B2C;&#x56DB;&#x5355;&#x5143;&#xFF0C;&#x4ECA;&#x665A;&#x5728;&#x5BB6;&#x597D;&#x597D;&#x590D;&#x4E60;&#x3002;<br>
-        <br>
-    </td>
- </tr>
-</tbody></table>
-<hr>
-<h2 class="mume-header" id="20230421-wed-%E4%BA%94">2023.04.21 Wed &#x4E94;</h2>
-
-<table border="0">
- <tbody><tr>
-    <td style="text-align:center; color:red; font-weight:bold; font-size:1.2em; ">2(4)&#x73ED;</td>
-    <td style="text-align:center; color:blue; font-weight:bold; font-size:1.2em;">1(9)&#x73ED;</td>
- </tr>
- <tr style="vertical-align:top;">
-    <td style="border:1.5px solid red; padding:1px 1px 1px 10px; margin:0px; ">
-        <b style="font-size:1.2em;">2(4)&#x73ED;&#x2022;&#x4ECA;&#x65E5;&#x8BED;&#x6587;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-1.&#x590D;&#x4E60;&#x7B2C;&#x4E94;&#x5355;&#x5143;&#x77E5;&#x8BC6;&#x70B9;&#x3002;&#x4ECA;&#x5929;&#x9ED8;&#x5199;&#x56ED;&#x5730;&#x4E94;&#x65E5;&#x79EF;&#x6708;&#x7D2F;&#xFF0C;&#x4E0D;&#x592A;&#x7406;&#x60F3;&#xFF0C;&#x5468;&#x672B;&#x5728;&#x5BB6;&#x518D;&#x7763;&#x4FC3;&#x5B69;&#x5B50;&#x80CC;&#x4E00;&#x80CC;&#x9ED8;&#x4E00;&#x9ED8;&#x3002;<br>
-2.&#x719F;&#x8BFB;&#x300A;&#x96F7;&#x96E8;&#x300B;<br>
-3.&#x53C2;&#x8D5B;&#x7684;&#x5B69;&#x5B50;&#x5C3D;&#x91CF;&#x5468;&#x672B;&#x5B8C;&#x6210;(&#x4E66;&#x6CD5;&#x6216;&#x7F8E;&#x672F;)<br>
-4.&#x672C;&#x5468;&#x5B8C;&#x6210;&#x80CC;&#x8BF5;&#x516C;&#x51B6;&#x957F;&#x7B2C;3&#x81F3;5&#x7AE0;&#xFF0C;&#x4F1A;&#x80CC;&#x7684;&#x590D;&#x4E60;&#x80CC;&#x3002;<br>
-5.&#x8BFE;&#x5916;&#x9605;&#x8BFB;&#x6BCF;&#x5929;&#x534A;&#x5C0F;&#x65F6;&#xFF0C;&#x8FD0;&#x52A8;&#x534A;&#x5C0F;&#x65F6;&#xFF0C;&#x6BCF;&#x5929;&#x62BD;&#x7A7A;&#x8BA9;&#x5B69;&#x5B50;&#x8BA4;&#x771F;&#x7EC3;&#x4E0B;&#x5B57;(5&#x4E2A;&#x5B57;&#xFF0C;&#x4E00;&#x4E2A;&#x4E00;&#x884C;)<br>
-        <br>
-        <b style="font-size:1.2em;">2(4)&#x73ED;&#x2022;&#x4ECA;&#x5929;&#x6570;&#x5B66;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-&#x7565;<br>
-        <br>
-    </td>
-    <td style="border:1.5px solid blue; padding:1px 1px 1px 10px; ">
-        <b style="font-size:1.2em;">1(9)&#x73ED;&#x2022;&#x8BED;&#x6587;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1. &#x8BF5;&#x8BFB;&#x4E09;&#x5B57;&#x7ECF;&#x3002;<br>
-2. &#x5C11;&#x5148;&#x961F;&#x5165;&#x961F;&#x7684;&#x516D;&#x77E5;&#x516D;&#x4F1A;&#x80CC;&#x8BF5;&#x3001;&#x5B66;&#x4E60;&#x3002;<br>
-3. &#x9632;&#x6EBA;&#x6C34;&#x201C;&#x516D;&#x4E0D;&#x51C6;&#x201D;&#x6BCF;&#x4E2A;&#x4EBA;&#x8981;&#x6C42;&#x4F1A;&#x80CC;&#x3002;&#x5E76;&#x4E14;<br>
-4. &#x753B;&#x4E00;&#x526F;&#x6709;&#x5173;&#x9632;&#x6EBA;&#x6C34;&#x7684;&#x624B;&#x6284;&#x62A5;&#xFF08;&#x540E;&#x5929;&#x5E26;&#x6765;&#xFF09;&#xFF0C;&#x753B;&#x5F97;&#x597D;&#x8D34;&#x5728;&#x73ED;&#x7EA7;&#x5C55;&#x793A;&#x3002;<br>
-        <br>
-        <b style="font-size:1.2em;">1(9)&#x73ED;&#x2022;&#x6570;&#x5B66;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1.4.22-4.24&#x4F5C;&#x4E1A;:<br>
-&#x2460;&#x6570;&#x5B66;&#x4E66;P57 &#x7B2C;1&#x9898;&#xFF0C;&#x7B2C;2&#x9898;&#xFF0C;&#x7B2C;4&#x9898;&#xFF08;&#x8BF7;&#x7528;&#x4EBA;&#x6C11;&#x5E01;&#x6559;&#x5177;&#x6446;&#x4E00;&#x6446;&#xFF09;<br>
-&#x2461;&#x6570;&#x5B66;&#x4E66;P58&#x7B2C;5&#x9898;&#x3002;<br>
-&#x2462;&#x521B;&#x65B0;&#x8BFE;&#x5802;P38/39&#x3002;<br>
-2.&#x6BCF;&#x65E5;&#x4E00;&#x7EC3;: &#x2460;&#x53E3;&#x7B97;&#x8BAD;&#x7EC3;&#x3002;<br>
-3.&#x6BCF;&#x65E5;&#x5B9E;&#x8DF5;&#x6E38;&#x620F;: <br>
-&#x2460;&#x5BB6;&#x957F;&#x53EF;&#x6307;&#x5B9A;&#x5B69;&#x5B50;&#x4E70;&#x4E1C;&#x897F;&#xFF08;&#x53EF;&#x62FF;&#x94B1;&#x53BB;&#x5916;&#x9762;&#x5B9E;&#x8DF5;&#xFF0C;&#x4E5F;&#x53EF;&#x73A9;&#x4E70;&#x5356;&#x6E38;&#x620F;&#xFF09;&#x3002;&#x6BD4;&#x5982;&#x65E9;&#x9910;&#xFF0C;&#x96F6;&#x98DF;&#xFF0C;&#x5C0F;&#x4E1C;&#x897F;....&#xFF08;&#x6CE8;&#x610F;:&#x591A;&#x7EC3;&#x4E60;&#x51E0;&#x5143;&#x51E0;&#x89D2;&#x5B9E;&#x8DF5;&#x9898;&#xFF0C;&#x4F46;&#x76EE;&#x524D;&#x8FD8;&#x6CA1;&#x5B66;&#x627E;&#x96F6;&#x3002;&#xFF09;<br>
-4.&#x6BCF;&#x65E5;&#x4E00;&#x95EE;:&#x2460;&#x767E;&#x6570;&#x8868;&#x63D0;&#x95EE;&#xFF08;&#x4E5D;&#x9009;&#x4E00;&#x6216;&#x4E24;&#x4E2A;&#x95EE;&#x9898;&#xFF09;<br>
-        <br>
-    </td>
- </tr>
-</tbody></table>
-<hr>
-<h2 class="mume-header" id="20230420-thu-%E5%9B%9B">2023.04.20 Thu &#x56DB;</h2>
-
-<table border="0">
- <tbody><tr>
-    <td style="text-align:center; color:red; font-weight:bold; font-size:1.2em; ">2(4)&#x73ED;</td>
-    <td style="text-align:center; color:blue; font-weight:bold; font-size:1.2em;">1(9)&#x73ED;</td>
- </tr>
- <tr style="vertical-align:top;">
-    <td style="border:1.5px solid red; padding:1px 1px 1px 10px; margin:0px; ">
-        <b style="font-size:1.2em;">2(4)&#x73ED;&#x2022;&#x4ECA;&#x65E5;&#x8BED;&#x6587;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-1.&#x5EF6;&#x65F6;&#x8BFE;&#x4E0A;&#x6CA1;&#x5B8C;&#x6210;&#x6284;&#x5199;&#x8BCD;&#x8BED;&#x548C;&#x65E5;&#x79EF;&#x6708;&#x7D2F;&#x7684;&#x56DE;&#x5BB6;&#x7EE7;&#x7EED;&#x5B8C;&#x6210;&#xFF0C;&#x5BB6;&#x957F;&#x8BB0;&#x5F97;&#x68C0;&#x67E5;&#x4E0B;&#x3002;<br>
-2.&#x719F;&#x8BFB;&#x53E4;&#x8BD7;&#xFF0C;&#x719F;&#x8BFB;&#x751F;&#x5B57;<br>
-3.&#x672C;&#x5468;&#x5B8C;&#x6210;&#x80CC;&#x8BF5;&#x516C;&#x51B6;&#x957F;&#x7B2C;3&#x81F3;5&#x7AE0;&#xFF0C;&#x4F1A;&#x80CC;&#x7684;&#x590D;&#x4E60;&#x80CC;&#x3002;<br>
-4.&#x8BFE;&#x5916;&#x9605;&#x8BFB;&#x6BCF;&#x5929;&#x534A;&#x5C0F;&#x65F6;&#xFF0C;&#x8FD0;&#x52A8;&#x534A;&#x5C0F;&#x65F6;&#x3002;<br>
-        <br>
-        <b style="font-size:1.2em;">2(4)&#x73ED;&#x2022;&#x4ECA;&#x5929;&#x6570;&#x5B66;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-&#x7565;<br>
-        <br>
-    </td>
-    <td style="border:1.5px solid blue; padding:1px 1px 1px 10px; ">
-        <b style="font-size:1.2em;">1(9)&#x73ED;&#x2022;&#x8BED;&#x6587;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1.&#x80CC;&#x8BF5;&#x53E4;&#x8BD7;&#xFF0C;&#x8BFB;&#x8BD7;&#x610F;<br>
-2.&#x671F;&#x4E2D;&#x7EC3;&#x4E60;&#x5377;&#x5DF2;&#x53D1;&#xFF0C;&#x8BF7;&#x5BB6;&#x957F;&#x67E5;&#x9605;&#xFF0C;&#x8BA9;&#x5B69;&#x5B50;&#x6284;&#x8BD5;&#x5377;&#x4E0A;&#x7684;&#x9519;&#x5B57;<br>
-3.&#x9884;&#x4E60;&#x300A;&#x96F7;&#x96E8;&#x300B;<br>
-4.&#x672C;&#x5468;&#x5B8C;&#x6210;&#x80CC;&#x8BF5;&#x516C;&#x51B6;&#x957F;&#x7B2C;3&#x81F3;5&#x7AE0;&#xFF0C;&#x4F1A;&#x80CC;&#x7684;&#x590D;&#x4E60;&#x80CC;&#x3002;<br>
-5.&#x8BFE;&#x5916;&#x9605;&#x8BFB;&#x6BCF;&#x5929;&#x534A;&#x5C0F;&#x65F6;&#xFF0C;&#x8FD0;&#x52A8;&#x534A;&#x5C0F;&#x65F6;&#x3002;<br>
-        <br>
-        <b style="font-size:1.2em;">1(9)&#x73ED;&#x2022;&#x6570;&#x5B66;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-&#x7565;<br>
-        <br>
-    </td>
- </tr>
-</tbody></table>
-<hr>
-<h2 class="mume-header" id="20230419-wed-%E4%B8%89">2023.04.19 Wed &#x4E09;</h2>
-
-<table border="0">
- <tbody><tr>
-    <td style="text-align:center; color:red; font-weight:bold; font-size:1.2em; ">2(4)&#x73ED;</td>
-    <td style="text-align:center; color:blue; font-weight:bold; font-size:1.2em;">1(9)&#x73ED;</td>
- </tr>
- <tr style="vertical-align:top;">
-    <td style="border:1.5px solid red; padding:1px 1px 1px 10px; margin:0px; ">
-        <b style="font-size:1.2em;">2(4)&#x73ED;&#x2022;&#x4ECA;&#x65E5;&#x8BED;&#x6587;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-1.&#x5EF6;&#x65F6;&#x8BFE;&#x4E0A;&#x6CA1;&#x5B8C;&#x6210;&#x6284;&#x5199;&#x8BCD;&#x8BED;&#x548C;&#x65E5;&#x79EF;&#x6708;&#x7D2F;&#x7684;&#x56DE;&#x5BB6;&#x7EE7;&#x7EED;&#x5B8C;&#x6210;&#xFF0C;&#x5BB6;&#x957F;&#x8BB0;&#x5F97;&#x68C0;&#x67E5;&#x4E0B;&#x3002;<br>
-2.&#x719F;&#x8BFB;&#x53E4;&#x8BD7;&#xFF0C;&#x719F;&#x8BFB;&#x751F;&#x5B57;<br>
-3.&#x672C;&#x5468;&#x5B8C;&#x6210;&#x80CC;&#x8BF5;&#x516C;&#x51B6;&#x957F;&#x7B2C;3&#x81F3;5&#x7AE0;&#xFF0C;&#x4F1A;&#x80CC;&#x7684;&#x590D;&#x4E60;&#x80CC;&#x3002;<br>
-4.&#x8BFE;&#x5916;&#x9605;&#x8BFB;&#x6BCF;&#x5929;&#x534A;&#x5C0F;&#x65F6;&#xFF0C;&#x8FD0;&#x52A8;&#x534A;&#x5C0F;&#x65F6;&#x3002;<br>
-        <br>
-        <b style="font-size:1.2em;">2(4)&#x73ED;&#x2022;&#x4ECA;&#x5929;&#x6570;&#x5B66;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-&#x7565;<br>
-        <br>
-    </td>
-    <td style="border:1.5px solid blue; padding:1px 1px 1px 10px; ">
-        <b style="font-size:1.2em;">1(9)&#x73ED;&#x2022;&#x8BED;&#x6587;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1. &#x300A;&#x521B;&#x65B0;&#x8BFE;&#x5802;&#x300B;&#x5B8C;&#x6210;&#x8BED;&#x6587;&#x56ED;&#x5730;&#x516D;&#x3002; <br>
-2. &#x80CC;&#x8BF5;&#x8BED;&#x6587;&#x56ED;&#x5730;&#x516D;&#x7684;&#x201C;&#x65E5;&#x79EF;&#x6708;&#x7D2F;&#x201D;&#x90E8;&#x5206;&#xFF0C;&#x9884;&#x4E60;&#x4E0B;&#x4E00;&#x8BFE;&#x3002; <br>
-        <br>
-        <b style="font-size:1.2em;">1(9)&#x73ED;&#x2022;&#x6570;&#x5B66;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1.&#x53E3;&#x7B97;&#x8BAD;&#x7EC3;&#x3002;<br>
-2.&#x767E;&#x6570;&#x8868;&#x63D0;&#x95EE;&#xFF08;&#x6BCF;&#x65E5;&#x4E00;&#x95EE;&#xFF09;&#x3002;<br>
-3.&#x9274;&#x4E8E;&#x8BFE;&#x5802;&#x60C5;&#x51B5;&#x4E0D;&#x7406;&#x60F3;&#xFF0C;&#x8BF7;&#x5BB6;&#x957F;&#x51C6;&#x5907;&#x4EBA;&#x6C11;&#x5E01;&#x6A21;&#x5177;&#xFF0C;&#x660E;&#x65E5;&#x5E26;&#x6765;&#x3002;<br>
-&#x5DF2;&#x6709;&#x6A21;&#x5177;&#x7684;&#xFF0C;&#x53EF;&#x505A;&#x6570;&#x5B66;&#x4E66;P54&#x7B2C;1&#x9898; &#x6446;&#x4E00;&#x6446;&#x3002;<br>
-4.&#x6570;&#x5B66;&#x5355;&#x5143;&#x4F5C;&#x4E1A;&#xFF08;&#x56DB;&#xFF09;&#x5DF2;&#x53D1;&#xFF0C;&#x8BF7;&#x5BB6;&#x957F;&#x7B7E;&#x5B57;&#x67E5;&#x9605;&#x3002;<br>
-        <br>
-    </td>
- </tr>
-</tbody></table>
-<hr>
-<h2 class="mume-header" id="20230418-mon-%E4%BA%8C">2023.04.18 Mon &#x4E8C;</h2>
-
-<table border="0">
- <tbody><tr>
-    <td style="text-align:center; color:red; font-weight:bold; font-size:1.2em; ">2(4)&#x73ED;</td>
-    <td style="text-align:center; color:blue; font-weight:bold; font-size:1.2em;">1(9)&#x73ED;</td>
- </tr>
- <tr style="vertical-align:top;">
-    <td style="border:1.5px solid red; padding:1px 1px 1px 10px; margin:0px; ">
-        <b style="font-size:1.2em;">2(4)&#x73ED;&#x2022;&#x4ECA;&#x65E5;&#x8BED;&#x6587;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-1.&#x9ED8;&#x5199;&#x8BED;&#x6587;&#x56ED;&#x5730;&#x4E00;&#x81F3;&#x56DB;&#x7684;&#x65E5;&#x79EF;&#x6708;&#x7D2F;&#x3002;<br>
-2.&#x590D;&#x4E60;&#x8BFB;&#x524D;&#x56DB;&#x5355;&#x5143;&#x8BCD;&#x8BED;&#x8868;&#x3002;<br>
-3.&#x672C;&#x5468;&#x5B8C;&#x6210;&#x80CC;&#x8BF5;&#x516C;&#x51B6;&#x957F;&#x7B2C;3&#x81F3;5&#x7AE0;&#xFF0C;&#x4F1A;&#x80CC;&#x7684;&#x590D;&#x4E60;&#x80CC;&#x3002;<br>
-4.&#x8BFE;&#x5916;&#x9605;&#x8BFB;&#x6BCF;&#x5929;&#x534A;&#x5C0F;&#x65F6;&#xFF0C;&#x8FD0;&#x52A8;&#x534A;&#x5C0F;&#x65F6;&#x3002;<br>
-        <br>
-        <b style="font-size:1.2em;">2(4)&#x73ED;&#x2022;&#x4ECA;&#x5929;&#x6570;&#x5B66;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-&#x7565;<br>
-        <br>
-    </td>
-    <td style="border:1.5px solid blue; padding:1px 1px 1px 10px; ">
-        <b style="font-size:1.2em;">1(9)&#x73ED;&#x2022;&#x8BED;&#x6587;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1. &#x300A;&#x5B57;&#x8BCD;&#x53E5;&#x300B;&#x5B8C;&#x6210;&#x300A;&#x8981;&#x4E0B;&#x96E8;&#x4E86;&#x300B;&#x4E00;&#x8BFE;&#x3002;<br>
-2.&#xFF08;&#x201C;&#x9632;&#x6EBA;&#x6C34;&#x201D;&#x7684;&#x4FE1;&#xFF09;&#x3001;&#xFF08;&#x201C;&#x81F4;&#x5B66;&#x751F;&#x5BB6;&#x957F;&#x7684;&#x4FE1;&#x201D;&#xFF0C;&#x65E5;&#x671F;&#x5199;2.8&#x65E5;&#xFF09;&#x8BF7;&#x5BB6;&#x957F;&#x8BA4;&#x771F;&#x586B;&#x5199;&#x660E;&#x5929;&#x5E26;&#x6765;&#x3002;<br>
-3. &#x7814;&#x5B66;&#x65F6;&#x95F4;&#x5B9A;&#x4E8E;&#x661F;&#x671F;&#x4E09;&#x3002;<br>
-        <br>
-        <b style="font-size:1.2em;">1(9)&#x73ED;&#x2022;&#x6570;&#x5B66;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-&#x7565;<br>
-        <br>
-    </td>
- </tr>
-</tbody></table>
-<hr>
-<h2 class="mume-header" id="20230417-tue-%E4%B8%80">2023.04.17 Tue &#x4E00;</h2>
-
-<table border="0">
- <tbody><tr>
-    <td style="text-align:center; color:red; font-weight:bold; font-size:1.2em; ">2(4)&#x73ED;</td>
-    <td style="text-align:center; color:blue; font-weight:bold; font-size:1.2em;">1(9)&#x73ED;</td>
- </tr>
- <tr style="vertical-align:top;">
-    <td style="border:1.5px solid red; padding:1px 1px 1px 10px; margin:0px; ">
-        <b style="font-size:1.2em;">2(4)&#x73ED;&#x2022;&#x4ECA;&#x65E5;&#x8BED;&#x6587;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-1.&#x8BFE;&#x540E;&#x5EF6;&#x65F6;&#x6CA1;&#x5B8C;&#x6210;&#x8BD5;&#x5377;&#x7684;&#x56DE;&#x5BB6;&#x7EE7;&#x7EED;&#x5B8C;&#x6210;&#xFF0C;&#x9EBB;&#x70E6;&#x5BB6;&#x957F;&#x67E5;&#x770B;&#x4E0B;&#xFF0C;&#x6709;&#x4E9B;&#x5B69;&#x5B50;&#x6CA1;&#x505A;&#x5B8C;&#x4F1A;&#x8BF4;&#x8C0E;&#x3002;<br>
-2.&#x7EE7;&#x7EED;&#x590D;&#x4E60;&#x524D;&#x56DB;&#x5355;&#x5143;&#x77E5;&#x8BC6;&#x70B9;&#x3002;<br>
-3.&#x672C;&#x5468;&#x5B8C;&#x6210;&#x80CC;&#x8BF5;&#x516C;&#x51B6;&#x957F;&#x7B2C;3&#x81F3;5&#x7AE0;&#xFF0C;&#x4F1A;&#x80CC;&#x7684;&#x590D;&#x4E60;&#x80CC;&#x3002;<br>
-4.&#x8BFE;&#x5916;&#x9605;&#x8BFB;&#x6BCF;&#x5929;&#x534A;&#x5C0F;&#x65F6;&#xFF0C;&#x8FD0;&#x52A8;&#x534A;&#x5C0F;&#x65F6;&#x3002;<br>
-        <br>
-        <b style="font-size:1.2em;">2(4)&#x73ED;&#x2022;&#x4ECA;&#x5929;&#x6570;&#x5B66;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-&#x7565;<br>
-        <br>
-    </td>
-    <td style="border:1.5px solid blue; padding:1px 1px 1px 10px; ">
-        <b style="font-size:1.2em;">1(9)&#x73ED;&#x2022;&#x8BED;&#x6587;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1.&#x300A;&#x521B;&#x65B0;&#x8BFE;&#x5802;&#x300B;&#x5B8C;&#x6210;&#x300A;&#x8981;&#x4E0B;&#x96E8;&#x4E86;&#x300B;&#x4E00;&#x8BFE;&#x3002;<br>
-2. &#x542C;&#x5199;&#x7B2C;&#x516D;&#x5355;&#x5143;&#x8BFE;&#x6587;&#x7530;&#x5B57;&#x683C;&#x4E2D;&#x751F;&#x5B57;&#x3002;<br>
-        <br>
-        <b style="font-size:1.2em;">1(9)&#x73ED;&#x2022;&#x6570;&#x5B66;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1.&#x5199;: &#x53E3;&#x7B97;&#x8BAD;&#x7EC3;&#x3002; <br>
-2.&#x590D;&#x4E60;: &#x5BB6;&#x91CC;&#x6709;&#x5C0F;&#x989D;&#x4EBA;&#x6C11;&#x5E01;&#x7684;&#x53EF;&#x4EE5;&#x590D;&#x4E60;&#x5143;&#x89D2;&#x5206;&#x3002;<br>
-&#x4F8B;&#x5982;:&#x4E00;&#x5F20;1&#x5143;&#x53EF;&#x4EE5;&#x6362;&#x51E0;&#x5F20;5&#x89D2;&#xFF0C;&#x6216;&#x51E0;&#x679A;1&#x89D2;&#x3002;<br>
-        &#x4E00;&#x679A;1&#x89D2;&#x53EF;&#x4EE5;&#x6362;&#x51E0;&#x679A;2&#x5206;&#xFF0C;&#x6216;&#x51E0;&#x679A;5&#x5206;&#x3002;<br>
-       &#x968F;&#x673A;&#x62FF;&#x51FA;&#x7EB8;&#x5E01;&#x786C;&#x5E01;&#xFF0C;&#x8BA9;&#x5B69;&#x5B50;&#x8BF4;&#x51FA;&#x51E0;&#x5143;&#x51E0;&#x89D2;&#x51E0;&#x5206;&#x3002;<br>
-        40&#x89D2;&#x7B49;&#x4E8E;&#x51E0;&#x5143;&#xFF0C;4&#x89D2;&#x7B49;&#x4E8E;&#x51E0;&#x5206;&#x3002;<br>
-3. &#x67E5;&#x6F0F;&#x8865;&#x7F3A;&#x521B;&#x65B0;&#x8BFE;&#x5802;&#x300A;&#x8BA4;&#x8BC6;&#x4EBA;&#x6C11;&#x5E01;&#x4E00;&#x300B; <br>
-        <br>
-    </td>
- </tr>
-</tbody></table>
-<hr>
-<h2 class="mume-header" id="20230414-fri-%E4%BA%94">2023.04.14 Fri &#x4E94;</h2>
-
-<table border="0">
- <tbody><tr>
-    <td style="text-align:center; color:red; font-weight:bold; font-size:1.2em; ">2(4)&#x73ED;</td>
-    <td style="text-align:center; color:blue; font-weight:bold; font-size:1.2em;">1(9)&#x73ED;</td>
- </tr>
- <tr style="vertical-align:top;">
-    <td style="border:1.5px solid red; padding:1px 1px 1px 10px; margin:0px; ">
-        <b style="font-size:1.2em;">&#x4ECA;&#x65E5;&#x8BED;&#x6587;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-1.&#x590D;&#x4E60;&#x7B2C;&#x4E94;&#x5355;&#x5143;&#x77E5;&#x8BC6;&#x70B9;&#x3002;<br>
-2.&#x9ED8;&#x5199;&#x5E26;&#x7B11;&#x7684;&#x8BCD;&#x8BED;&#x3001;&#x542B;&#x6709;&#x8FD1;&#x4E49;&#x8BCD;&#x7684;&#x8BCD;&#x8BED;&#x4EE5;&#x53CA;&#x65E5;&#x79EF;&#x6708;&#x7D2F;&#x3002;(&#x53EF;&#x4EE5;&#x5206;&#x4E24;&#x5929;&#x5B8C;&#x6210;)<br>
-3.&#x5B8C;&#x6210;&#x4E00;&#x4EFD;&#x624B;&#x6284;&#x62A5;&#xFF0C;&#x4E3B;&#x9898;&#x662F;&#x300A;&#x6821;&#x56ED;&#x5B89;&#x5168;&#x300B;<br>
-4.&#x672C;&#x5468;&#x5B8C;&#x6210;&#x80CC;&#x8BF5;&#x516C;&#x51B6;&#x957F;&#x7B2C;1&#x81F3;2&#x7AE0;&#xFF0C;&#x4F1A;&#x80CC;&#x7684;&#x590D;&#x4E60;&#x80CC;&#x3002;<br>
-5.&#x8BFE;&#x5916;&#x9605;&#x8BFB;&#x6BCF;&#x5929;&#x534A;&#x5C0F;&#x65F6;&#xFF0C;&#x8FD0;&#x52A8;&#x534A;&#x5C0F;&#x65F6;&#x3002;&#xA0;<br>
-PS:&#x7B2C;&#x56DB;&#x5355;&#x5143; &#x7EC3;&#x4E60;&#x5377;&#x5DF2;&#x53D1;&#xFF0C;&#x8BF7;&#x5BB6;&#x957F;&#x67E5;&#x9605;&#xFF01;<br>
-        <br>
-        <b style="font-size:1.2em;">&#x4ECA;&#x5929;&#x6570;&#x5B66;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-1.&#x4E66;p68,69<br>
-        <br>
-    </td>
-    <td style="border:1.5px solid blue; padding:1px 1px 1px 10px; ">
-        <b style="font-size:1.2em;">&#x8BED;&#x6587;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1.&#x300A;&#x521B;&#x65B0;&#x8BFE;&#x5802;&#x300B;&#x5B8C;&#x6210;&#x300A;&#x8377;&#x53F6;&#x5706;&#x5706;&#x300B;&#x4E00;&#x8BFE;&#x3002;<br>
-2. &#x9884;&#x4E60;&#x4E0B;&#x4E00;&#x8BFE;&#x3002;<br>
-3. &#x5BB6;&#x5EAD;&#x672C;&#x5199;&#x770B;&#x56FE;&#x5199;&#x8BDD;&#x4E24;&#x7BC7;&#x3002;<br>
-        <br>
-        <b style="font-size:1.2em;">&#x6570;&#x5B66;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1.&#x5199;: <br>
-&#x2460;&#x6309;&#x89C4;&#x5F8B;&#x5206;&#x522B;&#x7528;1-9&#x4E2A;&#x5706;&#x7247;&#x6446;&#x6570;&#xFF0C;&#x5E76;&#x8BB0;&#x5F55;&#x4E0B;&#x6765;&#xFF0C;&#x505A;&#x5230;&#x4E0D;&#x9057;&#x6F0F;&#x4E0D;&#x91CD;&#x590D;&#x3002;<br>
-&#x2461;&#x53E3;&#x7B97;&#x8BAD;&#x7EC3;<br>
-2.&#x8BF4;:<br>
-&#x6839;&#x636E;&#x767E;&#x6570;&#x8868;&#x63D0;&#x95EE;&#x3002;<br>
-        <br>
-    </td>
- </tr>
-</tbody></table>
-<hr>
-<h2 class="mume-header" id="20230413-thu-%E5%9B%9B">2023.04.13 Thu &#x56DB;</h2>
-
-<table border="0">
- <tbody><tr>
-    <td style="text-align:center; color:red; font-weight:bold; font-size:1.2em; ">2(4)&#x73ED;</td>
-    <td style="text-align:center; color:blue; font-weight:bold; font-size:1.2em;">1(9)&#x73ED;</td>
- </tr>
- <tr style="vertical-align:top;">
-    <td style="border:1.5px solid red; padding:1px 1px 1px 10px; margin:0px; ">
-        <b style="font-size:1.5em;">&#x4ECA;&#x65E5;&#x8BED;&#x6587;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-1.&#x719F;&#x8BFB;&#x8BED;&#x6587;&#x56ED;&#x5730;&#x4E94;&#xFF0C;&#x80CC;&#x8BF5;&#x8868;&#x793A;&#x201C;&#x7B11;&#x201D;&#x7684;&#x8BCD;&#x8BED;&#x3001;&#x542B;&#x6709;&#x8FD1;&#x4E49;&#x8BCD;&#x7684;&#x8BCD;&#x8BED;&#x3001;&#x65E5;&#x79EF;&#x6708;&#x7D2F; <br> 
-2.&#x505A;&#x5927;&#x7EC3;&#x8BED;&#x6587;&#x56ED;&#x5730;&#x4E94;  <br>
-3.&#x672C;&#x5468;&#x5B8C;&#x6210;&#x80CC;&#x8BF5;&#x516C;&#x51B6;&#x957F;&#x7B2C;1&#x81F3;2&#x7AE0;&#xFF0C;&#x4F1A;&#x80CC;&#x7684;&#x590D;&#x4E60;&#x80CC;&#x3002;<br>  
-4.&#x8BFE;&#x5916;&#x9605;&#x8BFB;&#x6BCF;&#x5929;&#x534A;&#x5C0F;&#x65F6;&#xFF0C;&#x8FD0;&#x52A8;&#x534A;&#x5C0F;&#x65F6;&#x3002;<br>  
-        <br>
-        <b style="font-size:1.2em;">&#x4ECA;&#x5929;&#x6570;&#x5B66;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-1.&#x4E66;p67&#x7B2C;1&#x3001;2&#x3001;3&#x9898;<br>
-2.&#x521B;p44<br>
-        <br>
-    </td>
-    <td style="border:1.5px solid blue;  padding:1px 1px 1px 10px; ">
-        <b style="font-size:1.2em;">&#x8BED;&#x6587;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1.&#x300A;&#x5B57;&#x8BCD;&#x53E5;&#x300B;&#x5B8C;&#x6210;&#x300A;&#x8377;&#x53F6;&#x5706;&#x5706;&#x300B;&#x4E00;&#x8BFE; <br>
-1. &#x5BB6;&#x5EAD;&#x672C;&#x6284;&#x5199;&#x300A;&#x53E4;&#x8BD7;&#x4E8C;&#x9996;&#x300B;&#x3002;<br>
-        <br>
-        <b style="font-size:1.2em;">&#x6570;&#x5B66;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1.&#x5199;:&#xA0; <br>
-&#x2460;&#x7528;4&#x4E2A;&#x5706;&#x7247;&#x5728;&#x6570;&#x4F4D;&#x8868;&#xFF08;&#x56FE;&#x4E00;&#xFF09;&#x91CC;&#x6446;&#x6570;&#xFF0C;&#x5E76;&#x5728;&#x8BB0;&#x5F55;&#x5355;&#xFF08;&#x56FE;&#x4E8C;&#xFF09;&#x4E0A;&#x586B;&#x6570;&#xFF0C;&#x8981;&#x6C42;&#x505A;&#x5230;&#x4E0D;&#x91CD;&#x590D;&#x4E5F;&#x4E0D;&#x6F0F;&#x6389;&#x3002; <br>
-&#x2461;&#x53E3;&#x7B97;&#x8BAD;&#x7EC3;&#x3002; <br>
-2.&#x8BF4;: <br>
-&#x6839;&#x636E;&#x767E;&#x6570;&#x8868;&#x63D0;&#x95EE;&#x3002; <br>
-3.&#x5907;: <br>
-&#x51C6;&#x5907;10&#x4E2A;&#x5C0F;&#x5706;&#x7247;&#xFF08;&#x786C;&#x5E01;&#x5927;&#x5C0F;&#x5373;&#x53EF;&#xFF09; <br>
-&#xFF08;&#x4ECA;&#x65E5;&#x8BFE;&#x5802;&#x8FD8;&#x6709;&#x5C11;&#x90E8;&#x5206;&#x540C;&#x5B66;&#x672A;&#x5E26;&#x5706;&#x7247;&#xFF0C;&#x90E8;&#x5206;&#x540C;&#x5B66;&#x6240;&#x5E26;&#x5706;&#x7247;&#x592A;&#x5927;&#x4E0D;&#x65B9;&#x4FBF;&#x8BFE;&#x5802;&#x64CD;&#x4F5C;&#xFF09;<br>
-        <br>
-    </td>
- </tr>
-</tbody></table>
-<hr>
-<h2 class="mume-header" id="20230412-wed-%E4%B8%89">2023.04.12 Wed &#x4E09;</h2>
-
-<table border="0">
- <tbody><tr>
-    <td style="text-align:center; color:red; font-weight:bold; font-size:1.2em; ">2(4)&#x73ED;</td>
-    <td style="text-align:center; color:blue; font-weight:bold; font-size:1.2em;">1(9)&#x73ED;</td>
- </tr>
- <tr style="vertical-align:top;">
-    <td style="border:1.5px solid red; padding:1px 1px 1px 10px; margin:0px; ">
-        <b style="font-size:1.5em;">&#x4ECA;&#x65E5;&#x8BED;&#x6587;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-1.&#x590D;&#x4E60;&#x8BFB;&#x7B2C;&#x4E94;&#x5355;&#x5143;&#x8BFE;&#x6587;&#xFF0C;&#x80CC;&#x6BCF;&#x7BC7;&#x8BFE;&#x6587;&#x7684;&#x9053;&#x7406;&#x3002;<br>
-2.&#x4E66;&#x7A7A;11&#x548C;12&#x8BFE;&#x751F;&#x5B57;&#x3002;<br>
-3.&#x300A;&#x5C0F;&#x9A6C;&#x8FC7;&#x6CB3;&#x300B;&#x8BFE;&#x540E;&#x7EC3;&#x4E60;&#xFF0C;&#x7528;&#x4E0A;&#x9898;&#x76EE;&#x4E2D;&#x7684;&#x8BCD;&#x8BED;&#x7F16;&#x6545;&#x4E8B;&#x7ED9;&#x5BB6;&#x957F;&#x542C;<br>
-4.&#x80CC;&#x8BF5;&#x516C;&#x51B6;&#x957F;&#xFF0C;&#x6BCF;&#x5468;&#x4E09;&#x7AE0;&#x3002;<br>
-5.&#x8BFE;&#x5916;&#x9605;&#x8BFB;&#x6BCF;&#x5929;&#x534A;&#x5C0F;&#x65F6;&#xFF0C;&#x8FD0;&#x52A8;&#x534A;&#x5C0F;&#x65F6;&#x3002;<br>
-        <br>
-        <b style="font-size:1.2em;">&#x4ECA;&#x5929;&#x6570;&#x5B66;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-&#x7565;<br>
-        <br>
-    </td>
-    <td style="border:1.5px solid blue;  padding:1px 1px 1px 10px; ">
-        <b style="font-size:1.2em;">&#x8BED;&#x6587;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1.&#x300A;&#x521B;&#x65B0;&#x8BFE;&#x5802;&#x300B;&#x300A;&#x5B57;&#x8BCD;&#x53E5;&#x300B;&#x5B8C;&#x6210;&#x53E4;&#x8BD7;&#x4E8C;&#x9996;&#x4E00;&#x8BFE;&#x3002;<br>
-2.&#x300A;&#x53E4;&#x8BD7;&#x4E8C;&#x9996;&#x300B;&#x8FDB;&#x884C;&#x80CC;&#x8BF5;&#x3002;<br>
-        <br>
-        <b style="font-size:1.2em;">&#x6570;&#x5B66;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1.&#x5199;: <br>
-&#x2460;&#x53E3;&#x7B97;&#x8BAD;&#x7EC3;<br>
-2.&#x8BF4;:<br>
-&#x6839;&#x636E;&#x767E;&#x6570;&#x8868;&#x63D0;&#x95EE;&#x3002;&#xFF08;&#x4ECA;&#x65E5;&#x8BFE;&#x5802;&#x62BD;&#x67E5;&#x6548;&#x679C;&#x4E0D;&#x4F73;&#xFF09;<br>
-3.&#x51C6;&#x5907;10&#x4E2A;&#x5C0F;&#x5706;&#x7247;&#xFF08;&#x786C;&#x5E01;&#x5927;&#x5C0F;&#x5373;&#x53EF;&#xFF09;&#xFF0C;&#x660E;&#x65E5;&#x8BFE;&#x5802;&#x9700;&#x7528;&#x3002;<br>
-        <br>
-    </td>
- </tr>
-</tbody></table>
-<hr>
-<h2 class="mume-header" id="20230411-tue-%E4%BA%8C">2023.04.11 Tue &#x4E8C;</h2>
-
-<table border="0">
- <tbody><tr>
-    <td style="text-align:center; color:red; font-weight:bold; font-size:1.2em; ">2(4)&#x73ED;</td>
-    <td style="text-align:center; color:blue; font-weight:bold; font-size:1.2em;">1(9)&#x73ED;</td>
- </tr>
- <tr style="vertical-align:top;">
-    <td style="border:1.5px solid red; padding:1px 1px 1px 10px; margin:0px; ">
-        <b style="font-size:1.5em;">&#x4ECA;&#x65E5;&#x8BED;&#x6587;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-1.&#x719F;&#x8BFB;&#x300A;&#x5C0F;&#x9A6C;&#x8FC7;&#x6CB3;&#x300B;&#x4EE5;&#x53CA;&#x751F;&#x5B57;&#x8BCD;<br>
-2.&#x590D;&#x4E60;&#x7B2C;&#x56DB;&#x5355;&#x5143;&#xFF0C;&#x660E;&#x5929;&#x505A;&#x7EC3;&#x4E60;&#x5377;<br>
-3.&#x80CC;&#x8BF5;&#x516C;&#x51B6;&#x957F;&#xFF0C;&#x6BCF;&#x5468;&#x4E09;&#x7AE0;&#x3002;<br>
-4.&#x8BFE;&#x5916;&#x9605;&#x8BFB;&#x6BCF;&#x5929;&#x534A;&#x5C0F;&#x65F6;&#xFF0C;&#x8FD0;&#x52A8;&#x534A;&#x5C0F;&#x65F6;&#x3002;<br>
-        <br>
-        <b style="font-size:1.2em;">&#x4ECA;&#x5929;&#x6570;&#x5B66;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-&#x7565;<br>
-        <br>
-    </td>
-    <td style="border:1.5px solid blue;  padding:1px 1px 1px 10px; ">
-        <b style="font-size:1.2em;">&#x8BED;&#x6587;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1.&#xA0;&#x300A;&#x521B;&#x65B0;&#x8BFE;&#x5802;&#x300B;&#x5B8C;&#x6210;&#x8BED;&#x6587;&#x56ED;&#x5730;&#x4E94;&#x3002;<br>
-2.&#xA0;&#x80CC;&#x8BF5;&#x8BED;&#x6587;&#x56ED;&#x5730;&#x4E94;&#x201C;&#x8BC6;&#x5B57;&#x52A0;&#x6CB9;&#x7AD9;&#x201D;&#x7684;&#x513F;&#x6B4C;&#x548C;&#x201C;&#x65E5;&#x79EF;&#x6708;&#x7D2F;&#x201D;&#x7684;&#x6B47;&#x540E;&#x8BED;&#x3002;<br>
-        <br>
-        <b style="font-size:1.2em;">&#x6570;&#x5B66;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1.&#x5199;: &#xFF08;&#x2460;&#x53F7;&#x672C;&#xFF0C;&#x660E;&#x65E5;&#x9700;&#x4EA4;&#xFF09;<br>
-&#x2460;60+6<br>
-&#x7528;&#x56DB;&#x79CD;&#x4E0D;&#x540C;&#x7684;&#x65B9;&#x6CD5;&#x8BA1;&#x7B97;&#xFF08;&#x53EF;&#x53C2;&#x8003;&#x56FE;&#x4E00;&#xFF09;<br>
-2.&#x8BF4;:<br>
-&#x6839;&#x636E;&#x767E;&#x6570;&#x8868;&#x63D0;&#x95EE;&#x3002;<br>
-&#xFF08;&#x53C2;&#x8003;&#x95EE;&#x9898;&#x8303;&#x4F8B;&#xFF0C;&#x6BCF;&#x5929;&#x63D0;&#x4E24;&#x79CD;&#x4E0D;&#x540C;&#x7C7B;&#x578B;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x5BB6;&#x957F;&#x53EF;&#x89C6;&#x5B69;&#x5B50;&#x638C;&#x63E1;&#x60C5;&#x51B5;&#x9002;&#x5F53;&#x589E;&#x51CF;&#x540C;&#x7C7B;&#x578B;&#x7684;&#x95EE;&#x9898;&#x3002;&#xFF09;<br>
-&#x4F8B;&#x5982;:&#xA0;<br>
-        &#x2460;72&#x76F8;&#x90BB;&#x7684;&#x4E24;&#x4E2A;&#x6570;&#x662F;&#x591A;&#x5C11;&#x3002;<br>
-&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#x2461;&#x6839;&#x636E;&#x89C4;&#x5F8B;&#xA0;83&#xFF0C;86&#xFF0C;89&#xFF0C;92....&#x63A5;&#x7740;&#x5F80;&#x540E;&#x6570;&#x3002;<br>
-&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#x2462;58&#x524D;&#x9762;&#xFF08;&#x6216;&#x8005;&#x540E;&#x9762;&#xFF09;&#x7684;&#x4E94;&#x4E2A;&#x6570;&#x5B57;&#x662F;&#x591A;&#x5C11;&#x3002;<br>
-&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#x2463;&#xA0;46&#x662F;&#x7531;&#x51E0;&#x4E2A;&#x5341;&#x548C;&#x51E0;&#x4E2A;&#x4E00;&#x7EC4;&#x6210;&#x7684;&#x3002;<br>
-&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#x2464;9&#x4E2A;&#x4E00;&#x548C;6&#x4E2A;&#x5341;&#x7EC4;&#x6210;&#x7684;&#x6570;&#x662F;&#xFF08;&#xA0;&#xA0;&#xA0;&#xFF09;&#x3002;<br>
-&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#x2465;&#x968F;&#x673A;&#x8BF4;&#x4E24;&#x4E2A;&#x6570;&#x5B57;&#xA0;&#x6BD4;&#x5927;&#x5C0F;<br>
-&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#x2466;&#x4E2A;&#x4F4D;&#x6570;&#x662F;7&#x7684;&#x6709;&#x54EA;&#x4E9B;&#x6570;&#x5B57;&#x3002;<br>
-&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#x2467;&#x5341;&#x4F4D;&#x4E0A;&#x662F;6&#x7684;&#x6709;&#x54EA;&#x4E9B;&#x6570;&#x5B57;&#x3002;<br>
-&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#x2468;59&#xFF0C;&#x5341;&#x4F4D;&#x4E0A;&#x7684;&#x6570;&#x662F;&#x51E0;&#xFF0C;&#x4E2A;&#x4F4D;&#x4E0A;&#x7684;&#x6570;&#x662F;&#x51E0;&#x3002;<br>
-&#x6CE8;&#x610F;:&#x5982;&#x679C;&#x4EE5;&#x4E0A;&#x95EE;&#x9898;&#x5C0F;&#x5B69;&#x4E0D;&#x4F1A;&#x56DE;&#x7B54;&#xFF0C;&#x90A3;&#x5C31;&#x5148;&#x719F;&#x8BFB;&#x767E;&#x6570;&#x8868;&#xFF0C;&#x8981;&#x6C42;&#x505A;&#x5230;&#x6B63;&#x6570;&#x53CD;&#x6570;&#x81EA;&#x5982;&#x3002;<br>
-        <br>
-    </td>
- </tr>
-</tbody></table>
-<hr>
-<h2 class="mume-header" id="20230410-mon-%E4%B8%80">2023.04.10 Mon &#x4E00;</h2>
-
-<table border="0">
- <tbody><tr>
-    <td style="text-align:center; color:red; font-weight:bold; font-size:1.2em; ">2(4)&#x73ED;</td>
-    <td style="text-align:center; color:blue; font-weight:bold; font-size:1.2em;">1(9)&#x73ED;</td>
- </tr>
- <tr style="vertical-align:top;">
-    <td style="border:1.5px solid red; padding:1px 1px 1px 10px; margin:0px; ">
-        <b style="font-size:1.5em;">&#x4ECA;&#x65E5;&#x8BED;&#x6587;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-1.&#x719F;&#x8BFB;&#x300A;&#x5C0F;&#x9A6C;&#x8FC7;&#x6CB3;&#x300B;&#x4EE5;&#x53CA;&#x751F;&#x5B57;&#x8BCD;<br>
-2.&#x590D;&#x4E60;&#x8BFB;&#x7B2C;11&#x8BFE;12&#x8BFE;13&#x8BFE;&#x77E5;&#x8BC6;&#x70B9;<br>
-3.&#x6BCF;&#x5929;&#x590D;&#x4E60;&#x80CC;&#x8BF5;&#x300A;&#x91CC;&#x4EC1;&#x7BC7;&#x300B;&#x6CE8;&#x610F;&#x505C;&#x987F;&#x3002;&#x80CC;&#x8BF5;&#x516C;&#x51B6;&#x957F;&#xFF0C;&#x6BCF;&#x5468;&#x4E09;&#x7AE0;&#x3002;<br>
-4.&#x8BFE;&#x5916;&#x9605;&#x8BFB;&#x6BCF;&#x5929;&#x534A;&#x5C0F;&#x65F6;&#xFF0C;&#x8FD0;&#x52A8;&#x534A;&#x5C0F;&#x65F6;&#x3002;<br>
-        <br>
-        <b style="font-size:1.2em;">&#x4ECA;&#x5929;&#x6570;&#x5B66;&#x5BB6;&#x5EAD;&#x7EC3;&#x4E60;:</b><br><br>
-1.&#x6570;&#x5B66;&#x4E66;63<br>
-2.&#x521B;p43<br>
-        <br>
-    </td>
-    <td style="border:1.5px solid blue;  padding:1px 1px 1px 10px; ">
-        <b style="font-size:1.2em;">&#x8BED;&#x6587;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1.&#x8BED;&#x6587;&#x4E66;&#x7B2C;128&#x9875;&#x504F;&#x65C1;&#x6BCF;&#x4E2A;&#x6284;&#x5199;&#x4E09;&#x904D;&#xFF0C;&#x5982;&#x56FE;:<br>
-2.&#x8BED;&#x6587;&#x7B2C;&#x4E94;&#x5355;&#x5143;&#x751F;&#x5B57;&#x8FDB;&#x884C;&#x542C;&#x5199;&#x3002;<br>
-3.&#x8BF7;&#x5404;&#x4F4D;&#x540C;&#x5B66;&#x719F;&#x8BFB;&#x80CC;&#x8BF5;&#x5C11;&#x5148;&#x961F;&#x5165;&#x961F;&#x987B;&#x77E5;&#x7684;&#x201C;&#x516D;&#x77E5;&#x3001;&#x516D;&#x4F1A;&#x3001;&#x4E00;&#x505A;&#x201D;&#x3002;<br>
-        <br>
-        <b style="font-size:1.2em;">&#x6570;&#x5B66;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;:</b><br><br>
-1.&#x5199;: <br>
-&#x2460;&#x53E3;&#x7B97;&#x8BAD;&#x7EC3;&#xFF08;&#x81F3;&#x5C11;15&#x9053;&#x8BA1;&#x7B97;&#x9898;&#xFF09;<br>
-2.&#x8BF4;:<br>
-&#x6839;&#x636E;&#x767E;&#x6570;&#x8868;&#x63D0;&#x95EE;&#x3002;<br>
-&#xFF08;&#x53C2;&#x8003;&#x95EE;&#x9898;&#x8303;&#x4F8B;&#xFF0C;&#x6BCF;&#x5929;&#x63D0;&#x4E24;&#x79CD;&#x4E0D;&#x540C;&#x7C7B;&#x578B;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x5BB6;&#x957F;&#x53EF;&#x89C6;&#x5B69;&#x5B50;&#x638C;&#x63E1;&#x60C5;&#x51B5;&#x9002;&#x5F53;&#x589E;&#x51CF;&#x540C;&#x7C7B;&#x578B;&#x7684;&#x95EE;&#x9898;&#x3002;&#xFF09;<br>
-&#x4F8B;&#x5982;:&#xA0;<br>
-        &#x2460;72&#x76F8;&#x90BB;&#x7684;&#x4E24;&#x4E2A;&#x6570;&#x662F;&#x591A;&#x5C11;&#x3002;<br>
-&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#x2461;&#x6839;&#x636E;&#x89C4;&#x5F8B;&#xA0;83&#xFF0C;86&#xFF0C;89&#xFF0C;92....&#x63A5;&#x7740;&#x5F80;&#x540E;&#x6570;&#x3002;<br>
-&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#x2462;58&#x524D;&#x9762;&#xFF08;&#x6216;&#x8005;&#x540E;&#x9762;&#xFF09;&#x7684;&#x4E94;&#x4E2A;&#x6570;&#x5B57;&#x662F;&#x591A;&#x5C11;&#x3002;<br>
-&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#x2463;&#xA0;46&#x662F;&#x7531;&#x51E0;&#x4E2A;&#x5341;&#x548C;&#x51E0;&#x4E2A;&#x4E00;&#x7EC4;&#x6210;&#x7684;&#x3002;<br>
-&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#x2464;9&#x4E2A;&#x4E00;&#x548C;6&#x4E2A;&#x5341;&#x7EC4;&#x6210;&#x7684;&#x6570;&#x662F;&#xFF08;&#xA0;&#xA0;&#xA0;&#xFF09;&#x3002;<br>
-&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#x2465;&#x968F;&#x673A;&#x8BF4;&#x4E24;&#x4E2A;&#x6570;&#x5B57;&#xA0;&#x6BD4;&#x5927;&#x5C0F;<br>
-&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#x2466;&#x4E2A;&#x4F4D;&#x6570;&#x662F;7&#x7684;&#x6709;&#x54EA;&#x4E9B;&#x6570;&#x5B57;&#x3002;<br>
-&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#x2467;&#x5341;&#x4F4D;&#x4E0A;&#x662F;6&#x7684;&#x6709;&#x54EA;&#x4E9B;&#x6570;&#x5B57;&#x3002;<br>
-&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#x2468;59&#xFF0C;&#x5341;&#x4F4D;&#x4E0A;&#x7684;&#x6570;&#x662F;&#x51E0;&#xFF0C;&#x4E2A;&#x4F4D;&#x4E0A;&#x7684;&#x6570;&#x662F;&#x51E0;&#x3002;<br>
-&#x6CE8;&#x610F;:&#x5982;&#x679C;&#x4EE5;&#x4E0A;&#x95EE;&#x9898;&#x5C0F;&#x5B69;&#x4E0D;&#x4F1A;&#x56DE;&#x7B54;&#xFF0C;&#x90A3;&#x5C31;&#x5148;&#x719F;&#x8BFB;&#x767E;&#x6570;&#x8868;&#xFF0C;&#x8981;&#x6C42;&#x505A;&#x5230;&#x6B63;&#x6570;&#x53CD;&#x6570;&#x81EA;&#x5982;&#x3002;<br>
-        <br>
-    </td>
- </tr>
-</tbody></table>
-<h1 class="mume-header" id="the-end">The End</h1>
-
-<p>Mon&#x5468;&#x4E00;Monday Tues&#x4E8C;Tuesday Wed&#x4E09;Wednesday Thur/Thurs&#x56DB;Thursday Fri&#x4E94;Friday Sat&#x516D;Saturday Sun&#x65E5;Sunday<br>
-Jan&#x4E00;January Feb&#x4E8C;February   Mar&#x4E09;March   Apr&#x56DB;April  May&#x4E94; Jun&#x516D;June Jul&#x4E03;July<br>
-Aug&#x516B;August  Sept&#x4E5D;September Oct&#x5341;October Nov&#x5341;&#x4E00;November Dec&#x5341;&#x4E8C;December<br>
-weekdays&#x5DE5;&#x4F5C;&#x65E5;workingday weekend&#x5468;&#x672B; Next&#x4E0B;&#x4E2A; weekend&#x5468;&#x672B;<br>
-spring&#x6625;  summer&#x590F;  fall/autumn&#x79CB; winter&#x51AC;<br>
-day&#x5929; week&#x5468; month&#x6708; year&#x5E74; decade&#x5341;&#x5E74; century&#x4E16;&#x7EAA; millennium&#x5343;&#x5E74; era&#x65F6;&#x4EE3;<br>
-early February&#x4E8C;&#x6708;&#x4E0A;&#x65EC;&#xFF1B;mid-February&#x4E8C;&#x6708;&#x4E2D;&#x65EC;&#xFF1B;late February&#x4E8C;&#x6708;&#x4E0B;&#x65EC;</p>
-
-      </div>
-      
-      
-    
-    
-    
-    
-    
-    
-    
-    
-  
-    </body></html>
+</html>
