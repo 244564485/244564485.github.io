@@ -61,7 +61,9 @@
 			console.log('result : ' + result);
 
 			arrHw1 = result.split(/<br>#\s+/);
+			console.log('arrHw1: ' , arrHw1);
 			arrHw11 = arrHw1[1].split(/<br>##\s+/);
+			console.log('arrHw11: ' , arrHw11);
 			arrHw111 = arrHw11[1].split(/<br>###\s+/);
 
 			for (let i = 1; i < arrHw111.length; i++) {
