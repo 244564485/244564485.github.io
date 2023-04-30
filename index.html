@@ -58,7 +58,7 @@
 			result = result.replace(/\r\n/g, "<br>");
 			result = result.replace(/\n/g, "<br>");
 			// result = result.replace(/\s/g,"");
-			// console.log('result : ' + result);
+			console.log('result : ' + result);
 
 			arrHw1 = result.split(/<br>#\s+/);
 			arrHw11 = arrHw1[1].split(/<br>##\s+/);
@@ -68,7 +68,7 @@
 				var index = arrHw111[i].indexOf("<br><br>");
 				arrHw111[i] = arrHw111[i].substring(index + 8);
 			}
-			// console.log('arrHw111: ' , arrHw111);
+			console.log('arrHw111: ' , arrHw111);
 		}
 		return arrHw111;
 	}
