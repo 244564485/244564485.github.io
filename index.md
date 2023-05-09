@@ -1,4 +1,4 @@
-# 244564485.github.io
+# 244564485
 
 ## [@homework](./hw/index.html)
 ## [@hwmd](./hw/homework.md)
