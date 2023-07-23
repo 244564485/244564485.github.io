@@ -5,7 +5,7 @@
 
 ## [@1-2年级看图写话](./hw/write2a.html)   
 
-## [@homework](./hw/index.html)
+## [@家庭作业](./hw/index.html)
 ## [@hwmd](./hw/homework.md)
 ## [@三字经](./hw/3rd.html) 
 ## [@11小](./hw/11小.html) 
