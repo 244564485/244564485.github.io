@@ -11,6 +11,8 @@
 ## [@11小](./hw/11小.html) 
 ## [@少先队队课(六知六会一做)](./hw/6s.html) 
 
+## [@亚运会开幕式](https://yayun.cctv.com/2022/opening/index.shtml)
+
 
 
 # 20230616
