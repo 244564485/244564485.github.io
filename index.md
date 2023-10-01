@@ -1,7 +1,8 @@
 # ![244564485](./bak/ATion01.jpg "ation126")  
 
 
-## [@英语背单词](https://qwerty.kaiyi.cool/gallery)  
+## [@键盘练习](https://et.abcoding.cn/dazi/#us)   
+## [@英语背单词](https://qwerty.kaiyi.cool/gallery)   
 
 ## [@1年级上册看图写话](./hw/write1a.html)   
 
